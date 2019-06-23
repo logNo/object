@@ -17,19 +17,7 @@ public class Theater {
 	}
 
 	public void enter(Audience audience) throws SoldOutException {
-		if(audience.hasInvitation()){
-			Ticket ticket = ticketSeller.getTicket();
-			audience.setTicket(ticket);
-			return;
-		}
-		purchaseTicket(audience);
+		ticketSeller.sellTo(audience);
 	}
 
-	private void purchaseTicket(Audience audience) throws SoldOutException {
-			Ticket ticket = ticketSeller.getTicket();
-			audience.payForTicket(ticket.getFee());
-			ticketSeller.plusAmount(ticket.getFee());
-			audience.setTicket(ticket);
-
-	}
 }
