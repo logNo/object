@@ -11,10 +11,9 @@ public class Theater {
 	public Theater(TicketSeller ticketSeller) {
 		this.ticketSeller = ticketSeller;
 	}
-	
-	// TODO TC 만들고.. 뭐가 문젠지 생각좀 해보자 
+
 	public void enter(Audience audience){
-		if(audience.getBag().hasInvitaion()){
+		if(audience.getBag().hasInvitation()){
 			Ticket ticket = ticketSeller.getTicketOffice().getTickets();
 			audience.getBag().setTicket(ticket);
 			return;

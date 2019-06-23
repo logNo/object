@@ -29,4 +29,7 @@ public class TicketOffice {
 		this.amount += amount;
 	}
 
+	public Long getAmount() {
+		return amount;
+	}
 }
