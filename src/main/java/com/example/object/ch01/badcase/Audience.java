@@ -11,4 +11,17 @@ import lombok.Getter;
 @Getter
 public class Audience {
 	private Bag bag;
+
+
+	public boolean hasInvitation(){
+		return bag.hasInvitation();
+	}
+
+	public void setTicket(Ticket ticket){
+		bag.setTicket(ticket);
+	}
+
+	public void payForTicket(long amount){
+		bag.minusAmount(amount);
+	}
 }

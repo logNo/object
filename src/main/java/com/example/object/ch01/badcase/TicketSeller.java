@@ -1,5 +1,6 @@
 package com.example.object.ch01.badcase;
 
+import com.example.object.SoldOutException;
 import lombok.Getter;
 
 /**
@@ -13,5 +14,15 @@ public class TicketSeller {
 
 	public TicketSeller(TicketOffice ticketOffice) {
 		this.ticketOffice = ticketOffice;
+	}
+
+	public Ticket getTicket() throws SoldOutException {
+		return ticketOffice
+				.getTicket()
+				.orElseThrow(() -> new SoldOutException("잔여티켓이 없습니다."));
+	}
+
+	public void plusAmount(long amount){
+		ticketOffice.plusAmount(amount);
 	}
 }

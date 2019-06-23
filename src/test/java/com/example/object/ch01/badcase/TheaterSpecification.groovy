@@ -1,6 +1,6 @@
 package com.example.object.ch01.badcase
 
-
+import com.example.object.SoldOutException
 import spock.lang.Specification
 
 /**
@@ -35,7 +35,6 @@ class TheaterSpecification extends Specification {
 
         when:
         theater.enter(audience)
-        // spock mocking 좀 찾아봐야겟다.
 
         then:
         audience.getBag().hasTicket()
@@ -47,4 +46,20 @@ class TheaterSpecification extends Specification {
     1. TC를 위해 입력되는 객체가 너무 많은듯 함 (given 절이 너무 길다.)
     2. getBag / hasTicket 처럼 `dont tell , ask` 가 지켜지지 않음.
      */
+
+    def "티켓이 없을때"(){
+        given:
+        def bag = new Bag(0)
+        def audience = new Audience(bag)
+        def ticketOffice = new TicketOffice(0)
+        def ticketSeller = new TicketSeller(ticketOffice)
+        def theater = new Theater(ticketSeller)
+
+        when:
+        theater.enter(audience)
+
+        then:
+        def e = thrown(SoldOutException.class)
+        e.message == "잔여티켓이 없습니다."
+    }
 }
