@@ -9,36 +9,24 @@ import lombok.Getter;
  */
 @Getter
 public class TicketSeller {
-	
-	private TicketOffice ticketOffice;
 
-	public TicketSeller(TicketOffice ticketOffice) {
-		this.ticketOffice = ticketOffice;
-	}
+    private TicketOffice ticketOffice;
 
-	private Ticket getTicket() throws SoldOutException {
-		return ticketOffice
-				.getTicket()
-				.orElseThrow(() -> new SoldOutException("잔여티켓이 없습니다."));
-	}
-
-	public void plusAmount(long amount){
-		ticketOffice.plusAmount(amount);
-	}
-
-    public void sellTo(Audience audience) throws SoldOutException {
-        if(audience.hasInvitation()){
-            Ticket ticket = getTicket();
-            audience.setTicket(ticket);
-            return;
-        }
-        purchaseTicket(audience);
+    public TicketSeller(TicketOffice ticketOffice) {
+        this.ticketOffice = ticketOffice;
     }
-    private void purchaseTicket(Audience audience) throws SoldOutException {
-            Ticket ticket = getTicket();
-            long fee = ticket.getFee();
-            audience.payForTicket(fee);
-            plusAmount(fee);
-            audience.setTicket(ticket);
+
+    public Ticket getTicket() throws SoldOutException {
+        return ticketOffice
+                .getTicket()
+                .orElseThrow(() -> new SoldOutException("잔여티켓이 없습니다."));
+    }
+
+    public void plusAmount(long amount) {
+        ticketOffice.plusAmount(amount);
+    }
+
+    public void sellTo(Long payment) {
+        plusAmount(payment);
     }
 }

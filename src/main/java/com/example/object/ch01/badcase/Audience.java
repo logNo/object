@@ -10,18 +10,15 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Audience {
-	private Bag bag;
+    private Bag bag;
 
-
-	public boolean hasInvitation(){
-		return bag.hasInvitation();
-	}
-
-	public void setTicket(Ticket ticket){
-		bag.setTicket(ticket);
-	}
-
-	public void payForTicket(long amount){
-		bag.minusAmount(amount);
-	}
+    public Long buy(Ticket ticket) {
+        if (bag.hasInvitation()) {
+            bag.setTicket(ticket);
+            return 0L;
+        }
+        bag.minusAmount(ticket.getFee());
+        bag.setTicket(ticket);
+        return ticket.getFee();
+    }
 }
